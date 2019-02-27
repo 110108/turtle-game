@@ -1,5 +1,4 @@
 import turtle
-#import pygame
 import random
 
 sc = turtle.Screen()
@@ -7,27 +6,32 @@ sc.listen()
 hero = turtle.Turtle()
 #enemy = turtle.Turtle()
 #sc.tracer(0)
-w=False
-a=False
-s=False
-d=False
-
-def isKeyDown(key):
-    #
+speed=0
+#global rot=0
 
 def w():
-    while True:
-        hero.fd(2)
+    global speed
+    speed = 1
 
 def s():
-    hero.fd(-2)
+    speed = -1
+
+def stop():
+    speed = 0
+
 def a():
     hero.write("line 20")
+
 def d():
     hero.write("line 22")
 
+
 sc.onkeypress(w,"w")
+sc.onkeyrelease(stop, "w")
 sc.onkeypress(s,"s")
 sc.onkeypress(a,"a")
 sc.onkeypress(d,"d")
-sc.listen()
+
+while True:
+    sc.listen()
+    hero.fd(speed)
