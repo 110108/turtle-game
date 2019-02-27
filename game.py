@@ -6,24 +6,28 @@ sc = turtle.Screen()
 sc.listen()
 hero = turtle.Turtle()
 #enemy = turtle.Turtle()
-sc.tracer(0)
+#sc.tracer(0)
 w=False
 a=False
 s=False
 d=False
 
-def up():
-  hero.write("line 16")
+def isKeyDown(key):
+    #
 
+def w():
+    while True:
+        hero.fd(2)
 
-def getKeysDown(screen):
-  sc.onkeypress(up,"w")
-  #sc.onkey(down,"s")
-  #sc.onkey(left,"a")
-  #sc.onkey(right,"d")
+def s():
+    hero.fd(-2)
+def a():
+    hero.write("line 20")
+def d():
+    hero.write("line 22")
 
-def moveForward(dist):
-  pass
-while True:
-  getKeysDown(sc)
-  #print(w)
+sc.onkeypress(w,"w")
+sc.onkeypress(s,"s")
+sc.onkeypress(a,"a")
+sc.onkeypress(d,"d")
+sc.listen()
