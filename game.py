@@ -14,9 +14,11 @@ def w():
     speed = 1
 
 def s():
+    global speed
     speed = -1
 
 def stop():
+    global speed
     speed = 0
 
 def a():
@@ -28,10 +30,11 @@ def d():
 
 sc.onkeypress(w,"w")
 sc.onkeyrelease(stop, "w")
+sc.onkeyrelease(stop, "s")
 sc.onkeypress(s,"s")
 sc.onkeypress(a,"a")
 sc.onkeypress(d,"d")
+sc.listen()
 
 while True:
-    sc.listen()
     hero.fd(speed)
