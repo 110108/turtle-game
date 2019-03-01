@@ -5,6 +5,7 @@ import random
 #screen
 sc = turtle.Screen()
 hero = turtle.Turtle()
+hero.goto(random.randint(-200,-400),random.randint(-200,-400))
 enemy = turtle.Turtle()
 coin = turtle.Turtle()
 speed=0
