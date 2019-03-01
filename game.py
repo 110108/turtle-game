@@ -1,22 +1,24 @@
 import turtle
 import random
 
+#setup
+#screen
 sc = turtle.Screen()
-sc.listen()
 hero = turtle.Turtle()
 enemy = turtle.Turtle()
 coin = turtle.Turtle()
-#sc.tracer(0)
 speed=0
 rot=0
 
+sc.tracer(0)
+
 def w():
     global speed
-    speed = 5
+    speed = 0.15
 
 def s():
     global speed
-    speed = -5
+    speed = -0.15
 
 def stop():
     global speed
@@ -24,16 +26,21 @@ def stop():
 
 def a():
     global rot
-    rot = 5
+    rot = .5
 
 def d():
     global rot
-    rot = -5
+    rot = -.5
 
 def cease():
     global rot
     rot = 0
 
+def screenWrap(turtle):
+    if(turtle.xcor()>465):
+        turtle.goto(-465,turtle.ycor())
+    elif(turtle.xcor()<-465):
+        turtle.goto(465,turtle.ycor())
 
 sc.onkeypress(w,"w")
 sc.onkeyrelease(stop, "w")
@@ -46,5 +53,7 @@ sc.onkeypress(d,"d")
 sc.listen()
 
 while True:
+    sc.update()
     hero.fd(speed)
     hero.left(rot)
+    screenWrap(hero)
