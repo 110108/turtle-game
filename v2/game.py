@@ -85,6 +85,15 @@ sc.onkeypress(a,"a")
 sc.onkeyrelease(cease, "a")
 sc.onkeyrelease(cease, "d")
 sc.onkeypress(d,"d")
+#
+sc.onkeypress(w,"Up")
+sc.onkeyrelease(stop, "Up")
+sc.onkeyrelease(stop, "Down")
+sc.onkeypress(s,"Down")
+sc.onkeypress(a,"Left")
+sc.onkeyrelease(cease, "Left")
+sc.onkeyrelease(cease, "Right")
+sc.onkeypress(d,"Right")
 sc.listen()
 
 while ((not caught(hero,enemy))and(not caught(coin,hero))):
