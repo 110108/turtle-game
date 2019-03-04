@@ -4,11 +4,22 @@ import random
 #setup
 #screen
 sc = turtle.Screen()
+sc.tracer(0)
 #hero
 hero = turtle.Turtle()
 hero.pu()
 hero.shape("turtle")
 hero.goto(-random.randint(200,400),-random.randint(200,400))
+#villan (p2)
+villan = turtle.Turtle()
+villan.pu()
+villan.shape("turtle")
+villan.goto(random.randint(200,400),random.randint(200,400))
+#writers
+w0=turtle.Turtle()
+w0.ht()
+#w0.
+w1=turtle.Turtle()
 #enemy
 enemy = turtle.Turtle()
 enemy.shape("triangle")
@@ -16,42 +27,68 @@ enemy.pu()
 #coin
 coin = turtle.Turtle()
 coin.shape("circle")
+coin.color("yellow")
 coin.pu()
 coin.goto(random.randint(-300,300),random.randint(-300,300))
 #random vars
-speed=0
-rot=0
+heroSpeed=0
+heroRot=0
+villanSpeed=0
+villanRot=0
 
-sc.tracer(0)
 
 def w():
-    global speed
-    speed = 1
+    global heroSpeed
+    heroSpeed = 1
 
 def s():
-    global speed
-    speed = 1
+    global heroSpeed
+    heroSpeed = 1
 
 def stop():
-    global speed
-    speed = 0
+    global heroSpeed
+    heroSpeed = 0
 
 def a():
-    global rot
-    rot = 1
+    global heroRot
+    heroRot = 1
 
 def d():
-    global rot
-    rot = -1
+    global heroRot
+    heroRot = -1
 
 def cease():
-    global rot
-    rot = 0
+    global heroRot
+    heroRot = 0
+
+def up():
+    global villanSpeed
+    villanSpeed = 1
+
+def down():
+    global villanSpeed
+    villanSpeed = 1
+
+def stopv():
+    global villanSpeed
+    villanSpeed = 0
+
+def left():
+    global villanRot
+    villanRot = 1
+
+def right():
+    global villanRot
+    villanRot = -1
+
+def ceasev():
+    global villanRot
+    villanRot = 0
 
 def move(turtle, speed, rot):
     turtle.fd(speed)
     turtle.left(rot)
-    
+
 
 def screenWrap(turtle):
     if(turtle.xcor()>465):
@@ -63,9 +100,9 @@ def screenWrap(turtle):
     elif(turtle.ycor()<-390):
         turtle.goto(turtle.xcor(),390)
 
-def chase(target, this):
+def chase(target, this, speed):
     this.setheading(this.towards(target))
-    this.forward(0.15)
+    this.forward(speed)
 
 def caught(target, this):
     if(target.distance(this) < 20):
@@ -86,22 +123,26 @@ sc.onkeyrelease(cease, "a")
 sc.onkeyrelease(cease, "d")
 sc.onkeypress(d,"d")
 #
-sc.onkeypress(w,"Up")
-sc.onkeyrelease(stop, "Up")
-sc.onkeyrelease(stop, "Down")
-sc.onkeypress(s,"Down")
-sc.onkeypress(a,"Left")
-sc.onkeyrelease(cease, "Left")
-sc.onkeyrelease(cease, "Right")
-sc.onkeypress(d,"Right")
+sc.onkeypress(up,"Up")
+sc.onkeyrelease(stopv, "Up")
+sc.onkeyrelease(stopv, "Down")
+sc.onkeypress(down,"Down")
+sc.onkeypress(left,"Left")
+sc.onkeyrelease(ceasev, "Left")
+sc.onkeyrelease(ceasev, "Right")
+sc.onkeypress(right,"Right")
 sc.listen()
 
-while ((not caught(hero,enemy))and(not caught(coin,hero))):
+while (((not caught(hero,enemy))and(not caught(coin,hero)))and((not caught(villan,enemy))and(not caught(coin,villan)))):
     sc.update()
-    move(hero, speed/5, rot/2)
-    chase(hero, enemy)
+    move(hero, heroSpeed/10, heroRot/2)
+    move(villan, villanSpeed/10, villanRot/2)
+    chase(hero, enemy, .05)
     if(caught(hero,enemy)):
         loss()
     if(caught(coin,hero)):
         win()
+    if(caught(hero,villan)):
+        sc.bgcolor("purple")
     screenWrap(hero)
+    screenWrap(villan)
