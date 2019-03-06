@@ -142,7 +142,7 @@ while (((not caught(hero,enemy))and(not caught(coin,hero)))and((not caught(villa
         loss()
     if(caught(coin,hero)):
         win()
-    if(caught(hero,villan)):
+    if(caught(coin,villan)):
         sc.bgcolor("purple")
     screenWrap(hero)
     screenWrap(villan)
