@@ -17,13 +17,20 @@ villan.shape("turtle")
 villan.goto(random.randint(200,400),random.randint(200,400))
 #writers
 w0=turtle.Turtle()
+w0.pu()
 w0.ht()
-#w0.
+w0.goto(-475,400)
 w1=turtle.Turtle()
-#enemy
+w1.pu()
+w1.ht()
+w1.goto(470,400)
+#enemies
 enemy = turtle.Turtle()
 enemy.shape("triangle")
 enemy.pu()
+enemy0 = turtle.Turtle()
+enemy0.shape("triangle")
+enemy0.pu()
 #coin
 coin = turtle.Turtle()
 coin.shape("circle")
@@ -31,12 +38,15 @@ coin.color("yellow")
 coin.pu()
 coin.goto(random.randint(-300,300),random.randint(-300,300))
 #random vars
+p1score=0
+p2score=0
 heroSpeed=0
 heroRot=0
 villanSpeed=0
 villanRot=0
 
 
+#over on line 92
 def w():
     global heroSpeed
     heroSpeed = 1
@@ -89,6 +99,19 @@ def move(turtle, speed, rot):
     turtle.fd(speed)
     turtle.left(rot)
 
+def writeScore():
+    w0.clear()
+    w1.clear()
+
+    w0.write(p1score)
+    w1.write(p2score)
+
+    if(p1score>=3):
+        w0.write("Player One Wins!")
+        w1.write("Player One Wins!")
+    elif(p2score>=3):
+        w0.write("Player Two Wins!")
+        w1.write("Player Two Wins!")
 
 def screenWrap(turtle):
     if(turtle.xcor()>465):
@@ -133,11 +156,13 @@ sc.onkeyrelease(ceasev, "Right")
 sc.onkeypress(right,"Right")
 sc.listen()
 
-while (((not caught(hero,enemy))and(not caught(coin,hero)))and((not caught(villan,enemy))and(not caught(coin,villan)))):
+while (((not caught(hero,enemy))and(not caught(coin,hero)))and((not caught(villan,enemy0))and(not caught(coin,villan)))):
     sc.update()
+    writeScore()
     move(hero, heroSpeed/10, heroRot/2)
     move(villan, villanSpeed/10, villanRot/2)
     chase(hero, enemy, .05)
+    chase(villan, enemy0, .05)
     if(caught(hero,enemy)):
         loss()
     if(caught(coin,hero)):
